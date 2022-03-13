@@ -19,12 +19,9 @@ h1{
 }
 
 .login{
-
     width: 25%;
-    align-items: center;
-    display: flex;
-    flex-direction: column;
-    justify-content:center;
+    display: grid;
+    grid-template-rows: 1fr;
     margin: 4em auto;
     border: 3px solid #282C2F;
     padding: 1.5em 0.5em;
@@ -43,6 +40,7 @@ input{
     border: 0;
     margin: 0.5em 0;
     padding: 1.1em 1em;
+    width: 100%;
 
 }
 .register-btn{
@@ -51,9 +49,13 @@ input{
     padding: 1.2em 1em;
     border: 0;
     margin: 0.5em 0;
-    width: 100%;
+    width: 110%;
     background-color: #D6D6D7;
 
+}
+.register-btn:hover{
+    background-color: black;
+    color: white;
 }
 
 .redirect {
@@ -68,3 +70,15 @@ input{
 	cursor: pointer;
 }
 
+.error-dialogbox{
+    text-align: center;
+    color: red;
+    font-size: 13px;
+    font-style: italic;
+}
+.login-details{
+    padding: 0 3em 0 2em;
+}
+p{
+    text-align: center;
+}

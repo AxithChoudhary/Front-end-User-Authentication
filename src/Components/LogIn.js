@@ -9,7 +9,7 @@ function LogIn() {
         password:"",
     })
     const navigate = useNavigate();
-
+    const [error,setError]=useState("")
     const userDetail=(e)=>{
         const type=e.target.name
         const value=e.target.value
@@ -18,16 +18,16 @@ function LogIn() {
 
     const submit=async (e)=>{
         e.preventDefault()
-        console.log("submit")
+        console.log("Submit")
         const newRecord={...userLogIn}
         if (newRecord.email===''){
-            console.log("email is empty")
+            console.log("Email is empty")
         }
         if(newRecord.password===""){
-            console.log("password is empty")
+            console.log("Password is empty")
         }
         if(newRecord.password.length<6){
-            console.log("password should pe atleast of 6")
+            console.log("Incorrect password")
         }
         else{
             try {
@@ -36,10 +36,9 @@ function LogIn() {
                 "https://user-auth-apii.herokuapp.com/api/v1/login",
                 newRecord);
                 console.log(response)
-                Navigate("/home");
-                
+                Navigate("/home"); 
             } catch(err){
-                console.log(err)
+                setError("oops!something went wrong try again later")
             }
 
         }
@@ -50,11 +49,14 @@ function LogIn() {
         <div className='login'>
             <form onSubmit={submit}>
                 <h1>Login</h1>
-                <label className='loginLabel' htmlFor='email'>Email</label><br />
-                <input type='email' value={userDetail.email} name="email" placeholder='Enter Email' onChange={userDetail}></input><br />
-                <label className='loginLabel' htmlFor='password'>Password</label><br />
-                <input type='password' value={userDetail.password} name="password" placeholder='Enter Password' onChange={userDetail}></input><br />
-                <button type='submit' className='register-btn'>Login</button>
+                <p className='error-dialogbox'>{error}</p><br/>
+                <div className='login-details'>
+                    <label className='loginLabel' htmlFor='email'>Email</label><br />
+                    <input type='email' value={userDetail.email} name="email" placeholder='Enter Email' onChange={userDetail}></input><br />
+                    <label className='loginLabel' htmlFor='password'>Password</label><br />
+                    <input type='password' value={userDetail.password} name="password" placeholder='Enter Password' onChange={userDetail}></input><br />
+                    <button type='submit' className='register-btn'>Login</button>
+                </div>
             </form>
             <p>
                     Don't have an account?{" "}

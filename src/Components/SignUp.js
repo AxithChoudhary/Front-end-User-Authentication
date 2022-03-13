@@ -1,5 +1,6 @@
 import React,{useState} from 'react'
 import axios from "axios";
+import { Navigate, useNavigate } from "react-router-dom";
 
 
 function SignUp() {
@@ -16,28 +17,31 @@ function SignUp() {
         setUserRegistration({...userRegistration,[type]:value})
     }
 
+    const [error,setError]=useState("")
+
     const submit=async (e)=>{
+        setError("")
         e.preventDefault()
         console.log("submit")
         const newRecord={...userRegistration}
 
         if (newRecord.name===""){
-            console.log("name is empty")
+            setError("name is empty")
         }
         if (newRecord.email===''){
-            console.log("email is empty")
+            setError("email is empty")
         }
         if(newRecord.password===""){
-            console.log("password is empty")
+            setError("password is empty")
         }
         if(newRecord.password.length<6){
-            console.log("password should pe atleast of 6")
+            setError("password should pe atleast of 6")
         }
         if(newRecord.name.length<6){
-            console.log("password should pe atleast of 6")
+            setError("name should pe atleast of 6")
         }
         if(userRegistration.password!==userRegistration.confPassword){
-            console.log("password doesn't matched")
+            setError("password doesn't matched")
         }
         else{
             try {
@@ -46,9 +50,10 @@ function SignUp() {
                 "https://user-auth-apii.herokuapp.com/api/v1/register",
                 newRecord);
                 console.log(response)
+                Navigate("/home");
                 
             } catch(err){
-                console.log(err)
+                setError("oops!something went wrong try again later")
             }
 
         }
@@ -56,18 +61,25 @@ function SignUp() {
 
   return (
     <div>
+        <div className='login'>
         <form onSubmit={submit}>
-        <label htmlFor='name'>Name</label>
-        <input type='text' value={userDetail.value} name="name" placeholder='Enter Name' onChange={userDetail}></input>
-        <label htmlFor='email'>Email</label>
-        <input type='email' value={userDetail.email} name="email" placeholder='Enter Email' onChange={userDetail}></input>
-        <label htmlFor='password'>Password</label>
-        <input type='password' value={userDetail.password} name="password" placeholder='Enter Password' onChange={userDetail}></input>
-        <label htmlFor='password'>Conform Password</label>
-        <input type='password' value={userDetail.confPassword} name="confPassword" placeholder='Enter Password again' onChange={userDetail}></input>
-        
-        <button type='submit'>Register</button>
+            <h1>Sign Up</h1>
+            <p className='error-dialogbox'>{error}</p><br/>
+                <div className='login-details'>
+                    <label htmlFor='name' className='loginLabel' >Name</label><br />
+                    <input type='text' value={userDetail.value} name="name" placeholder='Enter Name' onChange={userDetail}></input><br />
+                    <label htmlFor='email' className='loginLabel'>Email</label><br />
+                    <input type='email' value={userDetail.email} name="email" placeholder='Enter Email' onChange={userDetail}></input><br />
+                    <label htmlFor='password' className='loginLabel'>Password</label><br />
+                    <input type='password' value={userDetail.password} name="password" placeholder='Enter Password' onChange={userDetail}></input><br />
+                    <label htmlFor='password' className='loginLabel'>Conform Password</label><br />
+                    <input type='password' value={userDetail.confPassword} name="confPassword" placeholder='Enter Password again' onChange={userDetail}></input><br />  
+                    <button className='register-btn' type='submit'>Register</button>
+                </div>
         </form>
+        
+        </div>
+        
     </div>
   )
 }
