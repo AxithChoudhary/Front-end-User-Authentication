@@ -23,10 +23,10 @@ function LogIn() {
         if (newRecord.email===''){
             console.log("Email is empty")
         }
-        if(newRecord.password===""){
+        else if(newRecord.password===""){
             console.log("Password is empty")
         }
-        if(newRecord.password.length<6){
+        else if(newRecord.password.length<6){
             console.log("Incorrect password")
         }
         else{
@@ -36,7 +36,7 @@ function LogIn() {
                 "https://user-auth-apii.herokuapp.com/api/v1/login",
                 newRecord);
                 console.log(response)
-                Navigate("/home"); 
+                navigate("/home"); 
             } catch(err){
                 setError("oops!something went wrong try again later")
             }

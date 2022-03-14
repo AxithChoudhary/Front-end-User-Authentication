@@ -16,7 +16,7 @@ function SignUp() {
         const value=e.target.value
         setUserRegistration({...userRegistration,[type]:value})
     }
-
+    const navigate = useNavigate();
     const [error,setError]=useState("")
 
     const submit=async (e)=>{
@@ -28,19 +28,19 @@ function SignUp() {
         if (newRecord.name===""){
             setError("name is empty")
         }
-        if (newRecord.email===''){
+        else if (newRecord.email===''){
             setError("email is empty")
         }
-        if(newRecord.password===""){
+        else if(newRecord.password===""){
             setError("password is empty")
         }
-        if(newRecord.password.length<6){
+        else if(newRecord.password.length<6){
             setError("password should pe atleast of 6")
         }
-        if(newRecord.name.length<6){
+        else if(newRecord.name.length<6){
             setError("name should pe atleast of 6")
         }
-        if(userRegistration.password!==userRegistration.confPassword){
+        else if(userRegistration.password!==userRegistration.confPassword){
             setError("password doesn't matched")
         }
         else{
@@ -50,7 +50,7 @@ function SignUp() {
                 "https://user-auth-apii.herokuapp.com/api/v1/register",
                 newRecord);
                 console.log(response)
-                Navigate("/home");
+                navigate("/home");
                 
             } catch(err){
                 setError("oops!something went wrong try again later")
