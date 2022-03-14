@@ -2,7 +2,10 @@ import React from 'react'
 
 function Home() {
   return (
-    <div>Home</div>
+    <div>
+      <h1 className='home-dialog'>Welcome</h1>
+      <h2>you have successfully logged in</h2>
+    </div>
   )
 }
 
